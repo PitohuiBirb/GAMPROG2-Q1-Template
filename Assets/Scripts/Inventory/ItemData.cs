@@ -16,13 +16,18 @@ public enum ItemType
 {
     Consumable,
     Equipabble, 
+    Key,
+    Door,
 }
 
 public enum EquipmentSlotType
 {
     None,
-    // TODO
-    // Define other equipment slots here
+    Sword,
+    Shield,
+    Helmet,
+    Boots,
+    Chestpiece,
 }
 
 [System.Serializable]
@@ -41,6 +46,8 @@ public class Attribute
 public enum AttributeType
 {
     HP,
-    // TODO
-    // Add other attribute types here
+    MP,
+    ATK,
+    DEF,
+    CRIT,
 }

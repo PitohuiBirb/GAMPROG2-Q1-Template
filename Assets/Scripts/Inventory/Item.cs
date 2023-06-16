@@ -6,6 +6,20 @@ public class Item : Interactable
 {
     public override void Interact()
     {
-        // TODO: Add the item to the inventory. Make sure to destroy the prefab once the item is collected 
+        //Debug.Log(temp);
+        if(InventoryManager.Instance.GetEmptyInventorySlot()!=-1&&id!="Door")
+        {
+            InventoryManager.Instance.AddItem(id);
+
+            Destroy(this.gameObject);
+        }
+        else if(InventoryManager.Instance.KeyCheck())
+        {
+            if(id=="Door")
+            {
+                this.gameObject.SetActive(false);
+                InventoryManager.Instance.KeyPurge();
+            }
+        }
     }
 }

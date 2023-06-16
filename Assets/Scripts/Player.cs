@@ -5,6 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float maxHP;
+    public float maxMP;
+    public float ATK;
+    public float CRIT;
+    public float DEF;
     public List<Attribute> attributes;
 
 

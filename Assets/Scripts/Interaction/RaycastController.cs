@@ -23,5 +23,26 @@ public class RaycastController : MonoBehaviour
         //2. Check if the object hits any Interactable. If it does, show the interactionInfo and set its text
         //   to the id of the Interactable hit. If it doesn't hit any Interactable, simply disable the text
         //3. Make sure to interact with the Interactable only when the mouse button is pressed.
+        UpdateText(string.Empty);
+
+        Ray ray = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(ray.origin, ray.direction*raycastDistance);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, raycastDistance, layerMask))
+        {
+            if (hitInfo.collider.GetComponent<Item>() != null)
+            {
+                UpdateText(hitInfo.collider.GetComponent<Item>().id);
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hitInfo.collider.gameObject.GetComponent<Item>().Interact();
+                }
+            }
+        }
+    }
+
+    public void UpdateText(string promptMessage)
+    {
+        interactionInfo.text = promptMessage;
     }
 }

@@ -5,5 +5,6 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     public string id;
+
     public abstract void Interact();
 }

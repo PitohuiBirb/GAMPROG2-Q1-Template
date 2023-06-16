@@ -5,13 +5,26 @@ using UnityEngine;
 public class CharacterControllerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 2.0f;
+    private float moveSpeed = 5.0f;
+
+    [SerializeField] float jumpHeight = .3f;
+
+    private float velocity;
+
     [SerializeField]
-    private float gravityScale = 1.0f;
+    private float gravityScale = .4f;
 
     private float gravity = -9.8f;
 
     private CharacterController characterController;
+
+    private float height;
+
+    public Transform groundCheck;
+    public float groundDistance = .3f;
+    public LayerMask groundMask;
+
+    private bool IsGrounded;
 
     private void Awake()
     {
@@ -29,10 +42,20 @@ public class CharacterControllerMovement : MonoBehaviour
        float zMove = Input.GetAxis("Vertical");
 
         Vector3 moveDirection = (transform.right * xMove) + (transform.forward * zMove);
-        moveDirection.y += gravity * Time.deltaTime * gravityScale;
+        moveDirection.y += velocity + gravity * Time.deltaTime * gravityScale;
         moveDirection *= moveSpeed * Time.deltaTime;
-       
-        //Debug.Log(moveDirection);
+        velocity += gravity * gravityScale * Time.deltaTime;
+        //Debug.Log(IsGrounded);
+
+        IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (Input.GetButtonDown("Jump")&&IsGrounded)
+        {
+            velocity = Mathf.Sqrt(jumpHeight * -2 * (gravity * gravityScale));
+        }
+
+
+
         characterController.Move(moveDirection);
     }
 }
